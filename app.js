@@ -54,8 +54,9 @@ bot.dialog('Greeting', function (session) {
     var results = "";
     py.stdout.on('data', function(data) {
         results += data;
+        console.log(results);
+        session.endDialog(results);
     });
-    session.endDialog(results);
 }).triggerAction({
   matches: 'Greeting'
 });
