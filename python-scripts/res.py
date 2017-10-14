@@ -23,6 +23,21 @@ except:
 
 if typeOfInfo == "learn":
 
+	if len(ticker) > 5:
+		r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
+		try:
+			tickerSym = r.json()['ResultSet']['Result'][0]["symbol"]
+			tickerName = r.json()['ResultSet']['Result'][0]["name"]
+		except:
+			print("Sorry, I couldn't find the company you were looking for, try asking for a different one.")
+	else:
+		r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
+		tickerSym = ticker
+		try:
+			tickerName = r.json()['ResultSet']['Result'][0]["name"]
+		except:
+			print("Sorry, I couldn't find the ticker you were looking for, try asking for a different one.")
+
 	r = requests.post('http://www.blackrock.com/tools/hackathon/performance?identifiers=' + ticker,
 	  data = {
 		"identifiers": "MSFT"
@@ -32,18 +47,15 @@ if typeOfInfo == "learn":
 
 
 	if response == 200:
-		if len(ticker) > 5:
-			r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
-			tickerName = r.json()['ResultSet']['Result'][0]["name"]
-			print (r.text)
+			
 
 		response = r.json()
 		try:
 			json_data = response['resultMap']
 		except:
-			print(r.text)
+			print("Sorry, something went wrong.")
 		else:
-			analyticsMap = json_data['query'][0]
+			analyticsMap = json_data['analyticsMap'][0]
 
 			if parser.parse(str(analyticsMap['highDate'])) == datetime.today():
 				highTime = 1
@@ -60,11 +72,6 @@ if typeOfInfo == "learn":
 			upPercentage = analyticsMap['upMonthsPercent']
 			totalMonths = analyticsMap['totalMonths']
 			returnsType = analyticsMap['returnsType']
-
-			r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
-			tickerName = r.json()['ResultSet']['Result'][0]["name"]
-			print (r.text)
-
 
 			speechOutput = "Sure, you wanted information on " + tickerName + ". "
 
