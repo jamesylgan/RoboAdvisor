@@ -75,21 +75,3 @@ bot.dialog('Greeting', function (session) {
 }).triggerAction({
   matches: 'Greeting'
 });
-
-// Spell Check
-if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
-    bot.use({
-        botbuilder: function (session, next) {
-            spellService
-                .getCorrectedText(session.message.text)
-                .then(function (text) {
-                    session.message.text = text;
-                    next();
-                })
-                .catch(function (error) {
-                    console.error(error);
-                    next();
-                });
-        }
-    });
-}
