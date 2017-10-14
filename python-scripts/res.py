@@ -2,6 +2,8 @@ import requests
 import json
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
+import requests.packages.urllib3
+requests.packages.urllib3.disable_warnings()
 
 # Risk (0 is Not Risky, 1 is risky) - oneYearRisk
 # upMonths, highDate, highReturn, 
