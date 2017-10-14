@@ -9,11 +9,6 @@ requests.packages.urllib3.disable_warnings()
 # upMonths, highDate, highReturn, 
 
 
-
-
-
-print("Kill yourself you fucking faggot")
-"""
 r = requests.post('http://www.blackrock.com/tools/hackathon/portfolio-analysis',
   data = {
 	'betaPortfolios' :  "SNP500",
@@ -68,4 +63,3 @@ if response == 200:
 	returns = json_data['returns']
 	riskData = json_data['riskData']
 	weightAsFraction = json_data['weightAsFraction']
-"""
