@@ -51,12 +51,11 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    // var results = "";
-    // py.stdout.on('data', function(data) {
-    //     results += data;
-    // });
-    // session.endDialog(data);
-    session.endDialog("greetings");
+    var results = "";
+    py.stdout.on('data', function(data) {
+        results += data;
+    });
+    session.endDialog("data");
 }).triggerAction({
   matches: 'Greeting'
 });
