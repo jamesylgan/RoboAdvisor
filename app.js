@@ -8,11 +8,8 @@ A simple echo bot for the Microsoft Bot Framework.
 
 var restify = require('restify');
 var builder = require('botbuilder');
-var PythonShell = require('python-shell')
-
-var options = {
-    mode: 'text'
-}
+var spawn = require('child_process').spawn,
+    py = spawn('python', ['python-scripts/res.py']);
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -54,10 +51,7 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    session.endDialog(PythonShell.run('python-scripts/res.py', options, function(err, results) {
-        if (err) throw err;
-        return results;
-    }));
+    session.endDialog("greetings");
 }).triggerAction({
   matches: 'Greeting'
 });
