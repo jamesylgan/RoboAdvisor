@@ -52,6 +52,13 @@ var recognizer = new builder.LuisRecognizer(LUIS_URL).onEnabled(function(
 });
 bot.recognizer(recognizer);
 
+bot.dialog('Greeting', function(session) {
+  // parent(session);
+  session.endDialog();
+}).triggerAction({
+  matches: 'Greeting'
+});
+
 bot.dialog('Help', function(session) {
   session.endDialog(
     'Hi! Try asking me things like \'search hotels in Seattle\', \'search hotels near LAX airport\' or \'show me the reviews of The Bot Resort\''
@@ -60,11 +67,22 @@ bot.dialog('Help', function(session) {
   matches: 'Help'
 });
 
-bot.dialog('Greeting', function(session) {
-  // parent(session);
+bot.dialog('Info', function(session) {
+  var stockEntity = builder.EntityRecognizer.findEntity(args.intent.entities,
+    'Stock');
+  parent(session, "info", stockEntity.entity);
   session.endDialog();
 }).triggerAction({
-  matches: 'Greeting'
+  matches: 'Info'
+});
+
+bot.dialog('Learn', function(session, args) {
+  var stockEntity = builder.EntityRecognizer.findEntity(args.intent.entities,
+    'Stock');
+  parent(session, "learn", stockEntity.entity);
+  session.endDialog();
+}).triggerAction({
+  matches: 'Learn'
 });
 
 bot.dialog('Profile', [
@@ -226,12 +244,21 @@ bot.dialog('Profile', [
   matches: 'Profile'
 });
 
+bot.dialog('Suggest', function(session, args) {
+  var stockEntity = builder.EntityRecognizer.findEntity(args.intent.entities,
+    'Stock');
+  parent(session, "suggest", stockEntity.entity);
+  session.endDialog();
+}).triggerAction({
+  matches: 'Suggest'
+});
+
 // JS -> PYTHON code
 // https://gist.github.com/cowboy/3427148
 
-var parent = function(session) {
+var parent = function(session, type, stock) {
   var spawn = require('child_process').spawn;
-  var child = spawn('py', ['python-scripts/res.py']);
+  var child = spawn('py', ['python-scripts/res.py' + ' ' + type + ' ' + stock]);
   var stdout = '';
   var stderr = '';
   child.stdout.on('data', function(buf) {
