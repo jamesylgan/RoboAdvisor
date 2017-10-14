@@ -11,6 +11,6 @@ certifi-2017.7.27.1.dist-info/WHEEL,sha256=5wvfB7GvgZAbKBSE9uX9Zbi6LCL-_KgezgHbl
 certifi-2017.7.27.1.dist-info/metadata.json,sha256=u7l0Z0L2OAt8iknI-JBmglISdRD1WSh_En-v_uE6oTU,915
 certifi-2017.7.27.1.dist-info/top_level.txt,sha256=KMu4vUCfsjLrkPbSNdgdekS-pVJzBAJFO__nI8NF6-U,8
 certifi-2017.7.27.1.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
-certifi/core.pyc,,
-certifi/__main__.pyc,,
-certifi/__init__.pyc,,
+certifi/__pycache__/core.cpython-36.pyc,,
+certifi/__pycache__/__init__.cpython-36.pyc,,
+certifi/__pycache__/__main__.cpython-36.pyc,,
