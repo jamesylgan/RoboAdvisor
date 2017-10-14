@@ -2,7 +2,8 @@
 A simple echo bot for the Microsoft Bot Framework.
 -----------------------------------------------------------------------------*/
 // This loads the environment variables from the .env file
-require('dotenv-extended').load();
+// LOCAL
+// require('dotenv-extended').load();
 
 var restify = require('restify');
 var builder = require('botbuilder');
@@ -46,8 +47,8 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var luisAppId = process.env.LuisAppId;
 var luisAPIKey = process.env.LuisAPIKey;
 var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
-// const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
-const LuisModelUrl = process.env.LUIS_MODEL_URL;
+const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
+// const LuisModelUrl = process.env.LUIS_MODEL_URL;
 
 // if DEBUG
 // console.log(process.env.LUIS_MODEL_URL);
