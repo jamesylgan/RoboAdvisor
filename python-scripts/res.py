@@ -6,7 +6,7 @@ from fuzzywuzzy import process
 # Risk (0 is Not Risky, 1 is risky) - oneYearRisk
 # upMonths, highDate, highReturn, 
 
-r = requests.post('https://www.blackrock.com/tools/hackathon/portfolio-analysis',
+r = requests.post('http://www.blackrock.com/tools/hackathon/portfolio-analysis',
   data = {
 	'betaPortfolios' :  "SNP500",
 	"calculateExpectedReturns" :  "true",
