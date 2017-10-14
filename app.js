@@ -52,13 +52,13 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    shell.on('message', function (message) {
-        console.log(message);
-    });
-    shell.end(function (err) {
-        if (err) console.log(err);
-        console.log('finished');
-    })
+    // shell.on('message', function (message) {
+    //     console.log(message);
+    // });
+    // shell.end(function (err) {
+    //     if (err) console.log(err);
+    //     console.log('finished');
+    // })
     session.endDialog('Hi! Welcome to Szechuantech');
 }).triggerAction({
   matches: 'Greeting'
