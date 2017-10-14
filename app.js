@@ -86,6 +86,7 @@ bot.dialog('Profile', [
 
     // Check for end of form
     if (session.dialogData.index >= questions.length) {
+    	console.log(session.dialogData.index);
       // Return completed form
       session.userData.answers = session.dialogData.form;
       session.endDialogWithResult({
@@ -188,10 +189,10 @@ var questions = [{
     prompt: [
       "Investment A   |  4 %              |   6 %                |  8 %",
       "Investment B   |  2 %              |   8 %                |  14 %",
-      "Investment C   | -5 %              |   10 %              |  20 %",
-      "Investment D   | -15 %            |   12 %              |  25 %",
-      "Investment E   | -20 %            |   15 %              |  30 %",
-      "Investment F   | -80 %             |   50 %              |  150 %"
+      "Investment C   | -5 %              |   10 %               |  20 %",
+      "Investment D   | -15 %             |   12 %               |  25 %",
+      "Investment E   | -20 %             |   15 %               |  30 %",
+      "Investment F   | -80 %             |   50 %               |  150 %"
     ]
   },
   {
