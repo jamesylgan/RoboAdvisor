@@ -10,7 +10,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var PythonShell = require('python-shell')
 
-var shell = new PythonShell('python-scripts/res.py', { mode: 'json'})
+// var shell = new PythonShell('python-scripts/res.py', { mode: 'json'})
 
 // Setup Restify Server
 var server = restify.createServer();
