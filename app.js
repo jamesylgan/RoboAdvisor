@@ -54,12 +54,10 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    dialog = "failed"
-    PythonShell.run('python-scripts/res.py', options, function(err, results) {
+    session.endDialog(PythonShell.run('python-scripts/res.py', options, function(err, results) {
         if (err) throw err;
-        dialog = results;
-    });
-    session.endDialog(dialog);
+        return results;
+    }));
 }).triggerAction({
   matches: 'Greeting'
 });
