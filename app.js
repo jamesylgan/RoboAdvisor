@@ -10,13 +10,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var PythonShell = require('python-shell')
 
-// var options = {
-//     mode: 'text',
-//     pythonPath: 'usr/bin/python3',
-//     pythonOptions: ['-u'],
-//     scriptPath: '/python-scripts/',
-//     args: ['value1', 'value2', 'value3']
-//   };
+var shell = new PythonShell('python-scripts/res.py', { mode: 'json'})
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -58,8 +52,8 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    PythonShell.run('res.py', function(err, results) {
-        if (err) throw err;
+    PythonShell.run('res.py', options, function(err, results) {
+        if (err) console.log(err);
         conosle.log(results);
     })
   session.endDialog('Hi! Welcome to Szechuantech');
