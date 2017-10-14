@@ -59,7 +59,7 @@ bot.dialog('Greeting', function (session) {
         if (err) throw err;
         dialog = results;
     });
-    session.endDialog('Hi! Welcome to Szechuantech');
+    session.endDialog(dialog);
 }).triggerAction({
   matches: 'Greeting'
 });
