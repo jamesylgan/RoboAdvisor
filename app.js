@@ -236,8 +236,8 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result.response.index;
-    session.userData.rating /= 50;
+    session.userData.rating += result.response.index * 2;
+    session.userData.rating /= 500;
     session.send("Your risk score is: %s", session.userData.rating);
   }
 ]).triggerAction({
