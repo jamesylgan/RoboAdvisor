@@ -83,8 +83,7 @@ bot.dialog('Profile', [
     });
   },
   function(session, result) {
-    session.userData.rating += result;
-
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "Which of the following have you owned before or own now?", [
         "N/A",
@@ -98,7 +97,7 @@ bot.dialog('Profile', [
       });
   },
   function(session, result) {
-    session.userData.rating += result;
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "Which best describes your experience of investment?", [
         "None",
@@ -114,7 +113,7 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "What is your prime objective with investment?", [
         "Education of your children",
@@ -129,7 +128,7 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "What percentage of your total savings are invested?", [
         "<10%",
@@ -144,7 +143,7 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "If you were to invest all your savings into only one of the five investments below, which would you choose?\nChoice             |  Worst Year  |  Average Year  |  Best Year", [
         "Investment A   |  4 %              |   6 %                |  8 %",
@@ -159,7 +158,7 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "What sport would you most like to participate in?", [
         "Baseball",
@@ -174,8 +173,8 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
-    builter.Prompts.choice(session,
+    session.userData.rating += result.response.index;
+    builder.Prompts.choice(session,
       "Which country would you be least likely to visit?", [
         "Venezuela",
         "Mexico",
@@ -189,7 +188,7 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "How many bones have you broken?", [
         "0",
@@ -204,7 +203,7 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
+    session.userData.rating += result.response.index;
     builder.Prompts.choice(session,
       "Which of these describes you most accurately?", [
         "Cross the street only at crosswalks",
@@ -219,9 +218,9 @@ bot.dialog('Profile', [
     );
   },
   function(session, result) {
-    session.userData.rating += result;
-    session.userData.rating /= 10;
-    console.log(session.userData.rating);
+    session.userData.rating += result.response.index;
+    session.userData.rating /= 50;
+    session.send("Your risk score is: %s", session.userData.rating);
   }
 ]).triggerAction({
   matches: 'Profile'
