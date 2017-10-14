@@ -68,34 +68,160 @@ bot.dialog('Greeting', function(session) {
 });
 
 bot.dialog('Profile', [
-  function(session, args) {
-    // Save previous state (create on first call)
-    session.dialogData.index = (args.index === undefined) ? 0 : args.index;
-    session.dialogData.form = (args.form === undefined) ? 0 : args.form;
-
+  function(session) {
+    session.userData.rating = 0;
     // Prompt user for next field
-    builder.Prompts.choice(session, questions[session.dialogData.index].question,
-      questions[session.dialogData.index].prompt, {
+    builder.Prompts.choice(session, "How long do you hold a stock?", [
+      "Less than 1 year",
+      "1 to 2 years",
+      "2 to 3 years",
+      "3 to 4 years",
+      "4 to 5 years",
+      "More than 5 years"
+    ], {
+      listStyle: builder.ListStyle.button
+    });
+  },
+  function(session, result) {
+    session.userData.rating += result;
+
+    builder.Prompts.choice(session,
+      "Which of the following have you owned before or own now?", [
+        "N/A",
+        "Time deposit or money market funds",
+        "Bonds or bond mutual funds",
+        "Stock mutual funds",
+        "Individual stocks",
+        "Leveraged funds"
+      ], {
         listStyle: builder.ListStyle.button
       });
   },
-  function(session, results) {
-    // Save users reply
-    var field = questions[session.dialogData.index].field;
-    session.dialogData.index = session.dialogData.index + 1;
+  function(session, result) {
+    session.userData.rating += result;
+    builder.Prompts.choice(session,
+      "Which best describes your experience of investment?", [
+        "None",
+        "None beyond bank savings accounts",
+        "Some investment experience (mutual funds or individual shares)",
+        "Experienced with a portfolio managed by an advisor",
+        "Experienced and manage my own portfolio",
+        "Buy AMD"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
 
-    // Check for end of form
-    if (session.dialogData.index >= questions.length) {
-    	console.log(session.dialogData.index);
-      // Return completed form
-      session.userData.answers = session.dialogData.form;
-      session.endDialogWithResult({
-        response: session.dialogData.form
-      });
-    } else {
-      // Next field
-      session.replaceDialog('Profile', session.dialogData);
-    }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    builder.Prompts.choice(session,
+      "What is your prime objective with investment?", [
+        "Education of your children",
+        "Savings",
+        "Capital growth and returns",
+        "Retirement",
+        "My legacy",
+        "Yacht"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    builder.Prompts.choice(session,
+      "What percentage of your total savings are invested?", [
+        "<10%",
+        "10-20%",
+        "20-30%",
+        "30-40%",
+        "40-99%",
+        "100%"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    builder.Prompts.choice(session,
+      "If you were to invest all your savings into only one of the five investments below, which would you choose?\nChoice             |  Worst Year  |  Average Year  |  Best Year", [
+        "Investment A   |  4 %              |   6 %                |  8 %",
+        "Investment B   |  2 %              |   8 %                |  14 %",
+        "Investment C   | -5 %              |   10 %               |  20 %",
+        "Investment D   | -15 %             |   12 %               |  25 %",
+        "Investment E   | -20 %             |   15 %               |  30 %",
+        "Investment F   | -80 %             |   50 %               |  150 %"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    builder.Prompts.choice(session,
+      "What sport would you most like to participate in?", [
+        "Baseball",
+        "Soccer",
+        "Skiing",
+        "Rock Climbing",
+        "Skydiving",
+        "Wingsuit Flying"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    builter.Prompts.choice(session,
+      "Which country would you be least likely to visit?", [
+        "Venezuela",
+        "Mexico",
+        "Russia",
+        "The United Kingdom",
+        "Germany",
+        "Iceland"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    builder.Prompts.choice(session,
+      "How many bones have you broken?", [
+        "0",
+        "1-2",
+        "3-5",
+        "6-9",
+        "10-14",
+        "15+"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    builder.Prompts.choice(session,
+      "Which of these describes you most accurately?", [
+        "Cross the street only at crosswalks",
+        "Cross the street near crosswalks",
+        "Cross the street anywhere if you don’t see cars",
+        "Cross the street anywhere if there are no cars in your path",
+        "Cross the street anywhere if the cars are moving slowly or have room to stop",
+        "Cross the street anywhere, no matter what"
+      ], {
+        listStyle: builder.ListStyle.button
+      }
+    );
+  },
+  function(session, result) {
+    session.userData.rating += result;
+    session.userData.rating /= 10;
+    console.log(session.userData.rating);
   }
 ]).triggerAction({
   matches: 'Profile'
@@ -128,115 +254,3 @@ var parent = function(session) {
 bot.on('error', function(e) {
   console.log('And error ocurred', e);
 });
-
-var questions = [{
-    question: "How long do you hold a stock?",
-    prompt: [
-      "Less than 1 year",
-      "1 to 2 years",
-      "2 to 3 years",
-      "3 to 4 years",
-      "4 to 5 years",
-      "More than 5 years"
-    ]
-  },
-  {
-    question: "Which of the following have you owned before or own now?",
-    prompt: [
-      "N/A",
-      "Time deposit or money market funds",
-      "Bonds or bond mutual funds",
-      "Stock mutual funds",
-      "Individual stocks",
-      "Leveraged funds"
-    ]
-  },
-  {
-    question: "Which best describes your experience of investment?",
-    prompt: [
-      "None",
-      "None beyond bank savings accounts",
-      "Some investment experience (mutual funds or individual shares)",
-      "Experienced with a portfolio managed by an advisor",
-      "Experienced and manage my own portfolio",
-      "Buy AMD"
-    ]
-  },
-  {
-    question: "What is your prime objective with investment?",
-    prompt: [
-      "Education of your children",
-      "Savings",
-      "Capital growth and returns",
-      "Retirement",
-      "My legacy",
-      "Yacht"
-    ]
-  },
-  {
-    question: "What percentage of your total savings are invested?",
-    prompt: [
-      "<10%",
-      "10-20%",
-      "20-30%",
-      "30-40%",
-      "40-99%",
-      "100%"
-    ]
-  },
-  {
-    question: "If you were to invest all your savings into only one of the five investments below, which would you choose?\nChoice             |  Worst Year  |  Average Year  |  Best Year",
-    prompt: [
-      "Investment A   |  4 %              |   6 %                |  8 %",
-      "Investment B   |  2 %              |   8 %                |  14 %",
-      "Investment C   | -5 %              |   10 %               |  20 %",
-      "Investment D   | -15 %             |   12 %               |  25 %",
-      "Investment E   | -20 %             |   15 %               |  30 %",
-      "Investment F   | -80 %             |   50 %               |  150 %"
-    ]
-  },
-  {
-    question: "What sport would you most like to participate in?",
-    prompt: [
-      "Baseball",
-      "Soccer",
-      "Skiing",
-      "Rock Climbing",
-      "Skydiving",
-      "Wingsuit Flying"
-    ]
-  },
-  {
-    question: "Which country would you be least likely to visit?",
-    prompt: [
-      "Venezuela",
-      "Mexico",
-      "Russia",
-      "The United Kingdom",
-      "Germany",
-      "Iceland"
-    ]
-  },
-  {
-    question: "How many bones have you broken?",
-    prompt: [
-      "0",
-      "1-2",
-      "3-5",
-      "6-9",
-      "10-14",
-      "15+"
-    ]
-  },
-  {
-    question: "Which of these describes you most accurately?",
-    prompt: [
-      "Cross the street only at crosswalks",
-      "Cross the street near crosswalks",
-      "Cross the street anywhere if you don’t see cars",
-      "Cross the street anywhere if there are no cars in your path",
-      "Cross the street anywhere if the cars are moving slowly or have room to stop",
-      "Cross the street anywhere, no matter what"
-    ]
-  }
-];
