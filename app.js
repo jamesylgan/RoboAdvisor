@@ -11,7 +11,8 @@ var builder = require('botbuilder');
 var spawn = require('child_process').spawn,
     py = spawn('python', ['python-scripts/res.py']);
 
-var data = "";
+var results = ""
+
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -53,8 +54,9 @@ bot.dialog('Help', function (session) {
 
 bot.dialog('Greeting', function (session) {
     py.stdout.on('data', function(data) {
-        session.endDialog(data);
+        results += data;
     });
+    session.endDialog(data);
 }).triggerAction({
   matches: 'Greeting'
 });
