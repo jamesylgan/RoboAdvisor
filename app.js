@@ -44,6 +44,14 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 /*
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
+.matches((session) => {
+	var PythonShell = require('python-shell');
+
+	PythonShell.run('index.py', function (err) {
+	  if (err) throw err;
+	  console.log('finished');
+	});
+});
 .onDefault((session) => {
     session.send('Sorry, I did not underSHAPSTPSHstand \'%s\'.', session.message.text);
 });
