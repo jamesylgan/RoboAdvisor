@@ -55,13 +55,13 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v0/application?id=' +
 // #endif
 
 // #ifdef DEBUG
-// console.log(process.env.LUIS_MODEL_URL);
+// console.log(process.env.L);
 // console.log(process.env.LuisAPIKey);
 // console.log(process.env.LuisAPIHostName);
 // #endif
 
 // Main dialog with LUIS
-var recognizer = new builder.LuisRecognizer(LuisModelUrl);
+var recognizer = new builder.LuisRecognizer("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/99e54023-bf56-4417-8311-fa5eb2d7245e?subscription-key=a659eee201024a6d92b6cf9a2973374a&timezoneOffset=0&verbose=true&spellCheck=true&q");
 bot.recognizer(recognizer);
 
 bot.dialog('Help', function (session) {
