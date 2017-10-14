@@ -52,10 +52,10 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    PythonShell.run('res.py', options, function(err, results) {
-        if (err) console.log(err);
-        conosle.log(results);
-    })
+    // PythonShell.run('res.py', options, function(err, results) {
+    //     if (err) console.log(err);
+    //     conosle.log(results);
+    // })
   session.endDialog('Hi! Welcome to Szechuantech');
 }).triggerAction({
   matches: 'Greeting'
