@@ -45,7 +45,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
 .onDefault((session) => {
-    session.send('Sorry, I did not understand \'%s\'.', session.message.text);
+    session.send('Sorry, I did not underSHAPSTPSHstand \'%s\'.', session.message.text);
 });
 
 bot.dialog('/', intents);    
