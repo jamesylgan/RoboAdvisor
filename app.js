@@ -2,7 +2,7 @@
 A simple echo bot for the Microsoft Bot Framework.
 -----------------------------------------------------------------------------*/
 // This loads the environment variables from the .env file
-// #ifdef LOCAL
+// #ifdef ENV
 // require('dotenv-extended').load();
 // #endif
 
@@ -23,13 +23,6 @@ var connector = new builder.ChatConnector({
     openIdMetadata: process.env.BotOpenIdMetadata
 });
 
-// #ifdef DEBUG
-// console.log(process.env.MICROSOFT_APP_ID);
-// console.log(process.env.MICROSOFT_APP_PASSWORD);
-// console.log(process.env.BotStateEndpoint);
-// console.log(process.env.BotOpenIdMetadata);
-// #endif
-
 // Listen for messages from users
 server.post('/api/messages', connector.listen());
 
@@ -44,24 +37,9 @@ var bot = new builder.UniversalBot(connector, function (session) {
     session.send('Sorry, I did not understand \'%s\'. Type \'help\' if you need assistance.', session.message.text);
 });
 
-// Make sure you add code to validate these fields
-var luisAppId = process.env.LuisAppId;
-var luisAPIKey = process.env.LuisAPIKey;
-var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
-// #ifdef LOCAL
-// const LuisModelUrl = process.env.LUIS_MODEL_URL;
-// #else
-const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v0/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
-// #endif
-
-// #ifdef DEBUG
-// console.log(process.env.L);
-// console.log(process.env.LuisAPIKey);
-// console.log(process.env.LuisAPIHostName);
-// #endif
-
 // Main dialog with LUIS
-var recognizer = new builder.LuisRecognizer("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/99e54023-bf56-4417-8311-fa5eb2d7245e?subscription-key=a659eee201024a6d92b6cf9a2973374a&timezoneOffset=0&verbose=true&spellCheck=true&q");
+const LUIS_URL = "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/99e54023-bf56-4417-8311-fa5eb2d7245e?subscription-key=a659eee201024a6d92b6cf9a2973374a&timezoneOffset=0&verbose=true&spellCheck=true&q";
+var recognizer = new builder.LuisRecognizer(LUIS_URL);
 bot.recognizer(recognizer);
 
 bot.dialog('Help', function (session) {
