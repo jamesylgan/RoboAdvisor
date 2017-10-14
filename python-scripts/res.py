@@ -18,7 +18,7 @@ def main():
     if status == 200:
         res = r.json()
         print(res['resultMap']['PORTFOLIOS'][0]['portfolios'][0]['analyticsMap']['returnOnEquity'])
+        sys.stdout.flush()
 
 if __name__ == '__main__':
     main()
-    sys.stdout.flush()
