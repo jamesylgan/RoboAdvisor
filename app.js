@@ -60,7 +60,7 @@ bot.dialog('Greeting', function (session) {
 
 var parent = function(session) {
   var spawn = require('child_process').spawn;
-  var child = spawn('python', ['python-scripts/res.py']);
+  var child = spawn('py', ['python-scripts/res.py']);
   // var child = spawn(process.execPath, [process.argv[1], 123]);
   var stdout = '';
   var stderr = '';

@@ -9,7 +9,7 @@ requests.packages.urllib3.disable_warnings()
 # upMonths, highDate, highReturn, 
 
 
-r = requests.post('http://www.blackrock.com/tools/hackathon/portfolio-analysis',
+r = requests.post('http://www.blackrock.com/tools/hackathon/portfolio-analysis', verify=False,
   data = {
 	'betaPortfolios' :  "SNP500",
 	"calculateExpectedReturns" :  "true",
