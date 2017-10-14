@@ -10,8 +10,6 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var PythonShell = require('python-shell')
 
-// var shell = new PythonShell('python-scripts/res.py', { mode: 'json'})
-
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -52,11 +50,11 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    // PythonShell.run('res.py', options, function(err, results) {
-    //     if (err) console.log(err);
-    //     conosle.log(results);
-    // })
-  session.endDialog('Hi! Welcome to Szechuantech');
+    PythonShell.run('python-scripts/res.py', function (err) {
+        if (err) console.log(err);
+        console.log('finished');
+    });
+    session.endDialog('Hi! Welcome to Szechuantech');
 }).triggerAction({
   matches: 'Greeting'
 });
