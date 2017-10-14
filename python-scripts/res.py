@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import requests
 import json
 import pprint
@@ -17,6 +15,5 @@ status = r.status_code
 
 if status == 200:
     res = r.json()
-    # print(res[0]['resultMap']['PORTFOLIOS']['portfolios']['analyticsMap']['returnOnAssets'])
-    print(res['resultMap']['PORTFOLIOS'][0]['portfolios'][0]['analyticsMap']['returnOnEquity'])
+    return res['resultMap']['PORTFOLIOS'][0]['portfolios'][0]['analyticsMap']['returnOnEquity']
     
