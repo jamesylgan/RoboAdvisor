@@ -77,6 +77,8 @@ bot.dialog('Profile', [
         var field = questions[session.dialogData.index++].field;
         session.dialogData.form[field] = results.response;
 
+        console.log(results.response);
+
         // Check for end of form
         if (session.dialogData.index >= questions.length) {
           console.log("\n\nEND\n\n");
