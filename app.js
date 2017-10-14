@@ -8,8 +8,6 @@ A simple echo bot for the Microsoft Bot Framework.
 
 var restify = require('restify');
 var builder = require('botbuilder');
-var spawn = require('child_process').spawn,
-    py = spawn('python', ['python-scripts/res.py']);
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -51,12 +49,32 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
-    // var results = "";
-    // py.stdout.on('data', function(data) {
-    //     results += data;
-    // });
-    // session.endDialog(data);
-    session.endDialog("greetings");
+    parent(session);
+    session.endDialog();
 }).triggerAction({
   matches: 'Greeting'
 });
+
+// JS -> PYTHON code
+// https://gist.github.com/cowboy/3427148
+
+var parent = function(session) {
+  var spawn = require('child_process').spawn;
+  var child = spawn('python', ['python-scripts/res.py']);
+  // var child = spawn(process.execPath, [process.argv[1], 123]);
+  var stdout = '';
+  var stderr = '';
+  child.stdout.on('data', function(buf) {
+    stdout += buf;
+  });
+  child.stderr.on('data', function(buf) {
+    stderr += buf;
+  });
+  child.on('close', function(code) {
+    // session.send('[END] code %s', code);
+    session.send(stdout);
+    if (stderr) {
+      session.send('[END] stderr "%s"', stderr);
+    }
+  });
+};
