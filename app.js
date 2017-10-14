@@ -2,8 +2,9 @@
 A simple echo bot for the Microsoft Bot Framework.
 -----------------------------------------------------------------------------*/
 // This loads the environment variables from the .env file
-// LOCAL
+// #ifdef LOCAL
 // require('dotenv-extended').load();
+// #endif
 
 var restify = require('restify');
 var builder = require('botbuilder');
@@ -22,12 +23,12 @@ var connector = new builder.ChatConnector({
     openIdMetadata: process.env.BotOpenIdMetadata
 });
 
-// if DEBUG
+// #ifdef DEBUG
 // console.log(process.env.MICROSOFT_APP_ID);
 // console.log(process.env.MICROSOFT_APP_PASSWORD);
 // console.log(process.env.BotStateEndpoint);
 // console.log(process.env.BotOpenIdMetadata);
-// endif
+// #endif
 
 // Listen for messages from users
 server.post('/api/messages', connector.listen());
@@ -47,14 +48,17 @@ var bot = new builder.UniversalBot(connector, function (session) {
 var luisAppId = process.env.LuisAppId;
 var luisAPIKey = process.env.LuisAPIKey;
 var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
-const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
+// #ifdef LOCAL
 // const LuisModelUrl = process.env.LUIS_MODEL_URL;
+// #else
+const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v0/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
+// #endif
 
-// if DEBUG
+// #ifdef DEBUG
 // console.log(process.env.LUIS_MODEL_URL);
 // console.log(process.env.LuisAPIKey);
 // console.log(process.env.LuisAPIHostName);
-// endif
+// #endif
 
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer(LuisModelUrl);
@@ -71,3 +75,21 @@ bot.dialog('Greeting', function (session) {
 }).triggerAction({
   matches: 'Greeting'
 });
+
+// Spell Check
+if (process.env.IS_SPELL_CORRECTION_ENABLED === 'true') {
+    bot.use({
+        botbuilder: function (session, next) {
+            spellService
+                .getCorrectedText(session.message.text)
+                .then(function (text) {
+                    session.message.text = text;
+                    next();
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    next();
+                });
+        }
+    });
+}
