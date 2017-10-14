@@ -54,9 +54,10 @@ bot.dialog('Help', function (session) {
 });
 
 bot.dialog('Greeting', function (session) {
+    dialog = "failed"
     PythonShell.run('python-scripts/res.py', options, function(err, results) {
         if (err) throw err;
-        console.log(results);
+        dialog = results;
     });
     session.endDialog('Hi! Welcome to Szechuantech');
 }).triggerAction({
