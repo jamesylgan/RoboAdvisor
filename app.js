@@ -62,7 +62,7 @@ bot.dialog('Greeting', function(session) {
 
 bot.dialog('Help', function(session) {
   session.endDialog(
-    'Hi! Try asking me things like \'search hotels in Seattle\', \'search hotels near LAX airport\' or \'show me the reviews of The Bot Resort\''
+    'Welcome to STRAT! We make it easy to learn about your favorite companies, and suggest stocks based on your preferences, to get started, take our profile test by saying "Risk Profile"!'
   );
 }).triggerAction({
   matches: 'Help'
