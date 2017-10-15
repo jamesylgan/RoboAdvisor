@@ -99,14 +99,22 @@ if typeOfInfo == "suggest":
 
 if typeOfInfo == "info":
 	if len(ticker) > 5:
-		print("Please enter your ticker name, (ex. MSFT, APPL, GOOG)")
+		r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
+		try:
+			tickerSym = r.json()['ResultSet']['Result'][0]["symbol"]
+			tickerName = r.json()['ResultSet']['Result'][0]["name"]
+		except:
+			print("Sorry, I couldn't find the company you were looking for, try asking for a different one.")
 	else:
-		searches = wikipedia.search(ticker)
-		print(searches)
-		if len(searches) == 0:
-			print("Sorry, I didn't find any info on " + ticker)
-		else:
-			if len(searches) > 5:
-				searches = wikipedia.search(ticker + " stock")
+		r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
+		tickerSym = ticker
+		try:
+			tickerName = r.json()['ResultSet']['Result'][0]["name"]
+		except:
+			print("Sorry, I couldn't find the ticker you were looking for, try asking for a different one.")
+	searches = wikipedia.search(tickerName)
 
-			print("Okay, here's some info about " + searches[1] + ". " + wikipedia.summary(searches[1], sentences=2))
+	if len(searches) == 0:
+		print("Sorry, I didn't find any info on " + ticker)
+	else:
+		print("Okay, here's some info about " + tickerName + ". " + wikipedia.summary(tickerName, sentences=4))
