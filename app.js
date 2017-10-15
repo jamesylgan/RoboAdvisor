@@ -41,7 +41,7 @@ var bot = new builder.UniversalBot(connector, function(session) {
 
 // Main dialog with LUIS
 const LUIS_URL =
-  "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/99e54023-bf56-4417-8311-fa5eb2d7245e?subscription-key=a659eee201024a6d92b6cf9a2973374a&timezoneOffset=0&verbose=true&spellCheck=true&q=";
+  "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/99e54023-bf56-4417-8311-fa5eb2d7245e?subscription-key=a659eee201024a6d92b6cf9a2973374a&timezoneOffset=0&verbose=true&q=";
 // https://github.com/Microsoft/BotBuilder/issues/2670
 // enables not rezognizing for prompts
 // something says that IntentDialo may be better; switch to it if further problems?
