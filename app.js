@@ -258,7 +258,7 @@ bot.dialog('Suggest', function(session, args) {
 
 var parent = function(session, type, stock) {
   var spawn = require('child_process').spawn;
-  var child = spawn('python', ['python-scripts/res.py' + ' ' + type + ' ' + stock]);
+  var child = spawn('python3', ['-u', 'python-scripts/res.py', type, stock]);
   var stdout = '';
   var stderr = '';
   child.stdout.on('data', function(buf) {
