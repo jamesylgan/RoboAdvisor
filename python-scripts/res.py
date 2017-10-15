@@ -31,6 +31,7 @@ if typeOfInfo == "learn":
 			tickerName = r.json()['ResultSet']['Result'][0]["name"]
 		except:
 			print("Sorry, I couldn't find the company you were looking for, try asking for a different one.")
+			exit()
 	else:
 		r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
 		tickerSym = ticker
@@ -99,6 +100,7 @@ if typeOfInfo == "learn":
 			speechOutput += "It usually offers returns " + returnsType.lower() + ". "
 
 			print(speechOutput)
+			exit()
 
 
 
@@ -127,6 +129,7 @@ if typeOfInfo == "suggest":
 		fullString += " To learn more about these stocks, ask me something like, 'Tell me about Apple'."
 
 		print(fullString)
+		exit()
 
 if typeOfInfo == "info":
 	if len(ticker) > 5:
@@ -136,6 +139,7 @@ if typeOfInfo == "info":
 			tickerName = r.json()['ResultSet']['Result'][0]["name"]
 		except:
 			print("Sorry, I couldn't find the company you were looking for, try asking for a different one.")
+			exit()
 	else:
 		r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
 		tickerSym = ticker
@@ -143,12 +147,15 @@ if typeOfInfo == "info":
 			tickerName = r.json()['ResultSet']['Result'][0]["name"]
 		except:
 			print("Sorry, I couldn't find the ticker you were looking for, try asking for a different one.")
+			exit()
 	searches = wikipedia.search(tickerName)
 
 	if len(searches) == 0:
 		print("Sorry, I didn't find any info on " + ticker)
+		exit()
 	else:
 		print("Okay, here's some info about " + tickerName + ". " + wikipedia.summary(tickerName, sentences=4))
-
+		exit()
 if typeOfInfo == "":
 	print("Sorry, I didn't understand what you meant.")
+	exit()
