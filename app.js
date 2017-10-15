@@ -242,6 +242,7 @@ bot.dialog('Profile', [
     session.userData.rating == 0.4 ? session.userData.rating = 1 : session.userData
       .rating = session.userData.rating;
     session.send("Your risk score is: %s", session.userData.rating);
+    session.endDialog();
   }
 ]).triggerAction({
   matches: 'Profile'
