@@ -67,7 +67,7 @@ bot.dialog('Help', function(session) {
   matches: 'Help'
 });
 
-bot.dialog('Info', function(session) {
+bot.dialog('Info', function(session, args) {
   var stockEntity = builder.EntityRecognizer.findEntity(args.intent.entities,
     'Stock');
   parent(session, "info", stockEntity.entity);
@@ -237,8 +237,10 @@ bot.dialog('Profile', [
   },
   function(session, result) {
     session.userData.rating += (result.response.index * 2);
-    session.userData.rating >= 50 ? session.userData.rating /= 250 : session.userData.rating /= 500;
-    session.userData.rating == 0.4 ? session.userData.rating = 1 : session.userData.rating = session.userData.rating;
+    session.userData.rating >= 50 ? session.userData.rating /= 250 :
+      session.userData.rating /= 500;
+    session.userData.rating == 0.4 ? session.userData.rating = 1 : session.userData
+      .rating = session.userData.rating;
     session.send("Your risk score is: %s", session.userData.rating);
   }
 ]).triggerAction({
@@ -248,7 +250,7 @@ bot.dialog('Profile', [
 bot.dialog('Suggest', function(session, args) {
   var stockEntity = builder.EntityRecognizer.findEntity(args.intent.entities,
     'Stock');
-  parent(session, "suggest", stockEntity.entity);
+  parent(session, "suggest", session.userData.rating);
   session.endDialog();
 }).triggerAction({
   matches: 'Suggest'
