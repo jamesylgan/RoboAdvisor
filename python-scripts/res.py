@@ -24,7 +24,7 @@ except:
 
 if typeOfInfo == "learn":
 
-	if len(ticker) > 5:
+	if len(ticker) >= 5:
 		r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
 		try:
 			tickerSym = r.json()['ResultSet']['Result'][0]["symbol"]
@@ -38,6 +38,7 @@ if typeOfInfo == "learn":
 			tickerName = r.json()['ResultSet']['Result'][0]["name"]
 		except:
 			print("Sorry, I couldn't find the ticker you were looking for, try asking for a different one.")
+			exit()
 
 	r = requests.post('http://www.blackrock.com/tools/hackathon/performance?identifiers=' + ticker, verify=False)
 
@@ -45,21 +46,39 @@ if typeOfInfo == "learn":
 
 
 	if response == 200:
-			
+		doIt = 0	
 
 		response = r.json()
 		try:
 			json_data = response['resultMap']['RETURNS'][0]
 		except:
-			print("Sorry, something went wrong.")
+			r = requests.post('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=' + ticker + '&region=1&lang=en', verify=False)
+			try:
+				tickerSym = r.json()['ResultSet']['Result'][0]["symbol"]
+				print(tickerSym)
+			except:
+				print("Sorry, there was an error getting that data, please try again later.")
+			else:
+				r = requests.post('http://www.blackrock.com/tools/hackathon/performance?identifiers=' + tickerSym, verify=False)
+				response = r.status_code
+				if response == 200:
+					response = r.json()
+					
+					try:
+						json_data = response['resultMap']['RETURNS'][0]
+					except:
+						print("Sorry, it doesn't look like we have information on that stock.")
+					else:
+						doIt = 1
 		else:
+			doIt = 1
 
-			if parser.parse(str(json_data['highDate'])) == datetime.today():
+		if doIt == 1:
+
+			if parser.parse(str(json_data['highDate'])) == datetime.today() or parser.parse(str(json_data['highDate'])) == parser.parse("20171005"):
 				highTime = 1
 			else:
 				highTime = 0
-				#Hardcoding for now
-				highTime = 1
 
 			dateString = str(datetime.today().strftime('%Y%m%d'))
 			#Hardcoding for now
