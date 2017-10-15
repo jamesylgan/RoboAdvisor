@@ -85,7 +85,7 @@ if typeOfInfo == "learn":
 
 if typeOfInfo == "suggest":
 	try:
-		userRisk = float(sys.argv[2]) / 100
+		userRisk = float(sys.argv[2])
 	except TypeError:
 		print("Sorry, something went wrong")
 	else:

@@ -246,9 +246,8 @@ bot.dialog('Profile', [
 });
 
 bot.dialog('Suggest', function(session, args) {
-  var stockEntity = builder.EntityRecognizer.findEntity(args.intent.entities,
-    'Stock');
-  parent(session, "suggest", stockEntity.entity);
+  var risk = session.userData.rating;
+  parent(session, "suggest", risk);
   session.endDialog();
 }).triggerAction({
   matches: 'Suggest'
