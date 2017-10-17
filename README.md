@@ -1,5 +1,4 @@
-### SzechuanTech RoboAdvisor (STRAT) @ HackGT
-
+# SzechuanTech RoboAdvisor @ georgia Tech (STRAT)
 SzechuanTech brings professional risk management from BlackRock to individual investors looking to diversify investment portfolios and learn more about investments. Through an easy-to-use chatbot, users can get suggestions to diversify and grow their portfolio, getting quick access to broken-down information about any stock.
 
 ## Inspiration
@@ -28,4 +27,4 @@ Documentation of a framework or API is nearly as crucial to their effectiveness 
 
 ## What's next for STRAT
 
-It would be cool to inegrate the bot with the (unofficial) Robinhood API to allow the user to buy stocks on their Robinhood account after receiving a certain recommendation or quote. The bot could also be much more versatile if it took into account factors other than risk and volatility when making a recommendation (and also ask similar personality questions for those other factors).
+It would be cool to integrate the bot with the (unofficial) Robinhood API to allow the user to buy stocks on their Robinhood account after receiving a certain recommendation or quote. The bot could also be much more versatile if it took into account factors other than risk and volatility when making a recommendation (and also ask similar personality questions for those other factors). The next steps for this project would be to fetch investment data from services like Fidelity, Mint, or Robinhood and assess the risk of a user's portfolio as we make suggestions, in order to best diversity the user's portfolio.
